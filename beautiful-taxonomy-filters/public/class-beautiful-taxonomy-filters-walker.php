@@ -2,7 +2,7 @@
 /**
  * The Custom Walker class being used by our wp_dropdown_categories to render the filter dropdowns
  *
- * @link       http://tigerton.se
+ *
  * @since      1.0.0
  *
  * @package    Beautiful_Taxonomy_Filters
@@ -16,7 +16,7 @@
  *
  * @package    Beautiful_Taxonomy_Filters
  * @subpackage Beautiful_Taxonomy_Filters/admin
- * @author     Jonathan de Jong <jonathan@tigerton.se>
+ * @author     Jonathan de Jong <me@jonte.dev>
  */
 class Walker_Slug_Value_Category_Dropdown extends Walker_CategoryDropdown {
 
@@ -54,7 +54,7 @@ class Walker_Slug_Value_Category_Dropdown extends Walker_CategoryDropdown {
 			$this->post_type = ( $this->instance['post_type'] != 'automatic' ? $this->instance['post_type'] : Beautiful_Taxonomy_Filters_Public::get_current_posttype( false ) );
 
 			if ( isset( $this->instance['show_description'] ) ) {
-				$this->show_description = strip_tags( $this->instance['show_description'] );
+				$this->show_description = wp_strip_all_tags( $this->instance['show_description'] );
 				if ( $this->show_description == 'inherit' ) {
 					$this->show_description = apply_filters( 'beautiful_filters_show_description', get_option( 'beautiful_taxonomy_filters_show_description' ), $this->post_type );
 				} else {
@@ -96,8 +96,9 @@ class Walker_Slug_Value_Category_Dropdown extends Walker_CategoryDropdown {
 		$queryvars = $wp_query->query_vars;
 		$cat_name = apply_filters( 'list_cats', $category->name, $category );
 		$output .= "\t" . '<option class="level-' . $depth . ' ' . $category->slug . '" value="' . $category->term_id . '"';
-		if ( isset( $_GET ) ) {
-			foreach ( $_GET as $get_variable ) {
+		$get_parameters = $_GET; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( isset( $get_parameters ) ) {
+			foreach ( $get_parameters as $get_variable ) {
 				if ( strpos( $get_variable, ',' ) !== false ) {
 					$get_array = explode( ',', $get_variable );
 				} else {

@@ -25,7 +25,7 @@
  * @since      1.0.0
  * @package    Beautiful_Taxonomy_Filters
  * @subpackage Beautiful_Taxonomy_Filters/includes
- * @author     Jonathan de Jong <jonathan@tigerton.se>
+ * @author     Jonathan de Jong <me@jonte.dev>
  */
 class Beautiful_Taxonomy_Filters {
 

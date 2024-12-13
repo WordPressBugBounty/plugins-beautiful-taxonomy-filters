@@ -1,10 +1,10 @@
 === Beautiful taxonomy filters ===
-Contributors: Jonathandejong, tigerton
+Contributors: Jonathandejong
 Donate link: http://fancy.to/k9qxt
 Tags: Taxonomy, filter, pretty permalinks, terms, widget
 Requires at least: 4.3.0
-Tested up to: 6.3
-Stable tag: 2.4.3
+Tested up to: 6.7
+Stable tag: 2.4.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -59,7 +59,7 @@ The Beautiful Taxonomy Filters plugin is an easy and good-looking way to provide
 * Romanian (Thanks to [Roberto Tamas](www.novace.ro))
 
 ____
-Do you want to translate this plugin to another language? I recommend using POEdit (http://poedit.net/) or if you prefer to do it straight from the WordPress admin interface (https://wordpress.org/plugins/loco-translate/). When you’re done, send us the file(s) to jonathan@tigerton.se and we’ll add it to the official plugin!
+Do you want to translate this plugin to another language? I recommend using POEdit (http://poedit.net/) or if you prefer to do it straight from the WordPress admin interface (https://wordpress.org/plugins/loco-translate/). When you’re done, send us the file(s) to me@jonte.dev and we’ll add it to the official plugin!
 
 = Other =
 * Based on [WordPress Plugin Boilerplate](https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate)
@@ -146,6 +146,9 @@ Why thank you! We don't have proper donate link but if you want to you can send 
 
 
 == Changelog ==
+= 2.4.4 =
+* BUGFIX: Sorted the recent security issue. Please make sure you update to this version or later.
+
 = 2.4.3 =
 * BUGFIX: Fixed if statement causing PHP warning.
 * IMPROVEMENT: Conditional dropdowns now attempts to *not* disable any value in the first dropdown being filtered, making it a bit more intuitive.
