@@ -73,10 +73,10 @@ $disable_select2 = ( get_option( 'beautiful_taxonomy_filters_disable_select2' ) 
 							'show_count'    => $show_count,
 							'hide_empty'    => $hide_empty,
 							'orderby'       => apply_filters( 'beautiful_filters_dropdown_orderby', 'name', $key ),
-							'order' 		=> apply_filters( 'beautiful_filters_dropdown_order', 'ASC', $key ),
+							'order' 		    => apply_filters( 'beautiful_filters_dropdown_order', 'ASC', $key ),
 							'hierarchical'  => true,
 							'echo'          => false,
-							'class'			=> 'beautiful-taxonomy-filters-select',
+							'class'			    => 'beautiful-taxonomy-filters-select',
 							'walker'        => new Walker_Slug_Value_Category_Dropdown( '', false, $current_post_type ),
 						);
 						//Apply filter on the arguments to let users modify them first!

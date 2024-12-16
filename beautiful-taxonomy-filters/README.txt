@@ -4,7 +4,7 @@ Donate link: http://fancy.to/k9qxt
 Tags: Taxonomy, filter, pretty permalinks, terms, widget
 Requires at least: 4.3.0
 Tested up to: 6.7
-Stable tag: 2.4.4
+Stable tag: 2.4.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -146,6 +146,12 @@ Why thank you! We don't have proper donate link but if you want to you can send 
 
 
 == Changelog ==
+= 2.4.5 =
+* BUGFIX: Fixes some issues with Select2. without search it will fail to stay open for no apparent reason so search is always enabled.
+* BUGFIX: Fixed so that select2 honours changed quantities from the select options.
+* IMPROVEMENT: Select2 now does not destroy and recreate the dropdowns all the time, instead we force it to recognise a change event.
+* IMPROVEMENT: Latest select2 library in use.
+
 = 2.4.4 =
 * BUGFIX: Sorted the recent security issue. Please make sure you update to this version or later.
 

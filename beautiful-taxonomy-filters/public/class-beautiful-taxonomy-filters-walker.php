@@ -95,7 +95,7 @@ class Walker_Slug_Value_Category_Dropdown extends Walker_CategoryDropdown {
 		global $wp_query;
 		$queryvars = $wp_query->query_vars;
 		$cat_name = apply_filters( 'list_cats', $category->name, $category );
-		$output .= "\t" . '<option class="level-' . $depth . ' ' . $category->slug . '" value="' . $category->term_id . '"';
+		$output .= "\t" . '<option class="level-' . $depth . ' ' . $category->slug . '" value="' . $category->term_id . '" data-label=""';
 		$get_parameters = $_GET; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( isset( $get_parameters ) ) {
 			foreach ( $get_parameters as $get_variable ) {
@@ -112,7 +112,7 @@ class Walker_Slug_Value_Category_Dropdown extends Walker_CategoryDropdown {
 			}
 		}
 		if ( in_array( $category->slug, $queryvars, true ) ) {
-			$output .= ' selected="selected" ';
+			$output .= ' selected="selected"';
 		}
 		$output .= '>';
 
@@ -122,12 +122,12 @@ class Walker_Slug_Value_Category_Dropdown extends Walker_CategoryDropdown {
 		if ( $args['show_count'] ) {
 			//If they want a post count make sure to only show the count for this specific post type
 			$count = Beautiful_Taxonomy_Filters_Public::get_term_post_count_by_type( $category->slug, $category->taxonomy, $this->post_type );
-			$output .= '&nbsp;&nbsp;(' . $count . ')';
+			$output .= '  (' . $count . ')';
 		}
 
 		if ( isset( $args['show_last_update'] ) ) {
 			$format = 'Y-m-d';
-			$output .= '&nbsp;&nbsp;' . gmdate( $format, $category->last_update_timestamp );
+			$output .= '  ' . gmdate( $format, $category->last_update_timestamp );
 		}
 
 		if ( $this->show_description && $category->description ) {
