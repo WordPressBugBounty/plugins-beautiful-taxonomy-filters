@@ -101,7 +101,7 @@ class Beautiful_Taxonomy_Filters_Widget extends WP_Widget {
 					),
 					'objects'
 				);
-				$activated_post_types = apply_filters( 'beautiful_filters_post_types', get_option('beautiful_taxonomy_filters_post_types') );
+				$activated_post_types = (array) apply_filters( 'beautiful_filters_post_types', get_option('beautiful_taxonomy_filters_post_types', [] ) );
 	            ?>
 	            <?php if($post_types): foreach($post_types as $single_post_type): ?>
 	            	<?php if(in_array($single_post_type->name, $activated_post_types)): ?>
