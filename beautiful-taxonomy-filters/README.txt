@@ -4,7 +4,7 @@ Donate link: http://fancy.to/k9qxt
 Tags: Taxonomy, filter, pretty permalinks, terms, widget
 Requires at least: 4.3.0
 Tested up to: 6.9
-Stable tag: 2.4.6
+Stable tag: 2.4.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -146,6 +146,9 @@ Why thank you! We don't have proper donate link but if you want to you can send 
 
 
 == Changelog ==
+= 2.4.7 =
+* BUGFIX: Sorted a security issue. Please make sure you update to this version or later.
+
 = 2.4.6 =
 * BUGFIX: Fixed issue where the allowed post types option value `beautiful_taxonomy_filters_post_types` could be something other than an array and caused fatal errors.
 

@@ -305,7 +305,20 @@ class Beautiful_Taxonomy_Filters_Public {
 					continue;
 				}
 
-				$taxonomy = sanitize_text_field( $select['taxonomy'] );
+				// This value is used to build a raw SQL identifier (table alias) below, which
+				// $wpdb->prepare() can't parameterize, so we whitelist it against taxonomy_exists()
+				// on the exact, unmodified value. That's a case-sensitive lookup into $wp_taxonomies,
+				// a fixed dictionary only trusted server-side code (register_taxonomy()) can populate,
+				// so a match guarantees $taxonomy is one of those known-good strings and can't carry
+				// SQL metacharacters - no separate character stripping is needed on top of it.
+				// (We deliberately don't run this through sanitize_key()/lowercase it first: taxonomy
+				// keys aren't guaranteed lowercase, and doing so would break legitimate taxonomies
+				// that use mixed case.)
+				$taxonomy = $select['taxonomy'];
+				if ( ! is_string( $taxonomy ) || ! taxonomy_exists( $taxonomy ) ) {
+					continue;
+				}
+
 				// Cast as array and run it through absint to prevent SQL injection.
 				// This also allows us to easier handle multiple term selections in the future.
 				$term_ids = array_map( 'absint', explode( ',', $select['term'] ) );
