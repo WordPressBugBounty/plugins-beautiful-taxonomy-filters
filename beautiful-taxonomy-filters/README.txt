@@ -4,7 +4,7 @@ Donate link: http://fancy.to/k9qxt
 Tags: Taxonomy, filter, pretty permalinks, terms, widget
 Requires at least: 4.3.0
 Tested up to: 7.1
-Stable tag: 2.4.8
+Stable tag: 2.4.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -146,6 +146,11 @@ Why thank you! We don't have proper donate link but if you want to you can send 
 
 
 == Changelog ==
+= 2.4.9 =
+* BUGFIX: The `[show_beautiful_filters]` and `[show_beautiful_filters_info]` shortcodes now render at the position of the shortcode instead of above the content. If you previously relied on the old placement you may need to move the shortcode or adjust your styling.
+* IMPROVEMENT: Hardened the filter modules against a rare PHP 8 fatal error when a custom `beautiful_filters_post_types` filter returns a non-array value.
+* IMPROVEMENT: The conditional dropdowns AJAX endpoint now returns a proper JSON error response on a failed security check.
+
 = 2.4.8 =
 * IMPROVEMENT: Tested up to WordPress 7.1.
 * BUGFIX: Fixed a PHP 8+ fatal error that could occur on archive pages when an array-style query parameter was present in the URL. Also hardened a couple of related PHP 8 notices.

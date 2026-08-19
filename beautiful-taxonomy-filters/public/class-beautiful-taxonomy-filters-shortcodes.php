@@ -74,7 +74,7 @@ class Beautiful_Taxonomy_Filters_Shortcodes {
 	 * @since 2.3.5
 	 */
 	public function shortcode_beautiful_filters_info() {
-		return Beautiful_Taxonomy_Filters_Public::beautiful_filters_info();
+		return Beautiful_Taxonomy_Filters_Public::beautiful_filters_info( array( 'echo' => false ) );
 
 	}
 

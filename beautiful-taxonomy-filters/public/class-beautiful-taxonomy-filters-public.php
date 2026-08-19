@@ -280,7 +280,7 @@ class Beautiful_Taxonomy_Filters_Public {
 		// Security check
 		$nonce = sanitize_text_field( wp_unslash( $_REQUEST['nonce'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 		if ( ! wp_verify_nonce( $nonce, 'update_btf_selects_security' ) ) {
-			die( 'What do you think you\'re doing son?' );
+			wp_send_json_error( array( 'message' => __( 'Security check failed.', 'beautiful-taxonomy-filters' ) ), 403 );
 		}
 
 		global $wpdb;
@@ -532,13 +532,18 @@ class Beautiful_Taxonomy_Filters_Public {
 	*
 	* @since 1.0.0
 	*/
-	public static function beautiful_filters( $post_type ) {
+	public static function beautiful_filters( $post_type, $args = array() ) {
+		// Whether to echo the module (default, for template tags/actions/widgets/automagic)
+		// or capture and return it (used by the shortcode so it renders in place).
+		$echo = ! isset( $args['echo'] ) || $args['echo'];
+
 		//Fetch the plugins options
 		//Apply filters on them to let users modify the options before they're being used!
 		$post_types = apply_filters( 'beautiful_filters_post_types', get_option( 'beautiful_taxonomy_filters_post_types' ) );
 
-		//If there's no post types, bail early!
-		if ( ! $post_types ) {
+		//If there's no post types, bail early! Also guard against a filter returning a non-array,
+		//which would fatal in the in_array() checks below on PHP 8.
+		if ( empty( $post_types ) || ! is_array( $post_types ) ) {
 			return;
 		}
 
@@ -577,7 +582,15 @@ class Beautiful_Taxonomy_Filters_Public {
 		//On a post type that we want the filter on, and we have atleast one valid taxonomy
 		if ( in_array( $current_post_type, $post_types ) && ! empty( $current_taxonomies ) ) {
 
+			if ( ! $echo ) {
+				ob_start();
+			}
+
 			require plugin_dir_path( dirname( __FILE__ ) ) . 'public/partials/beautiful-taxonomy-filters-public-display.php';
+
+			if ( ! $echo ) {
+				return ob_get_clean();
+			}
 
 		}
 
@@ -588,7 +601,9 @@ class Beautiful_Taxonomy_Filters_Public {
 	*
 	* @since 1.0.0
 	*/
-	public static function beautiful_filters_info() {
+	public static function beautiful_filters_info( $args = array() ) {
+		// Whether to echo the module (default) or capture and return it (shortcode).
+		$echo = ! isset( $args['echo'] ) || $args['echo'];
 
 		global $wp_query;
 		$current_taxonomies = ( isset( $wp_query->tax_query->queries ) ) ? $wp_query->tax_query->queries : false;
@@ -599,12 +614,21 @@ class Beautiful_Taxonomy_Filters_Public {
 		$post_types         = apply_filters( 'beautiful_filters_post_types', get_option( 'beautiful_taxonomy_filters_post_types' ) );
 		$current_post_type  = self::get_current_posttype( false );
 
-		//If there is no current post type, bail early!
-		if ( ! post_type_exists( $current_post_type ) || ! in_array( $current_post_type, $post_types ) ) {
+		//If there is no current post type, bail early! The is_array() check guards against a filter
+		//returning a non-array, which would fatal in in_array() on PHP 8.
+		if ( ! is_array( $post_types ) || ! post_type_exists( $current_post_type ) || ! in_array( $current_post_type, $post_types ) ) {
 			return;
 		}
 
+		if ( ! $echo ) {
+			ob_start();
+		}
+
 		require plugin_dir_path( dirname( __FILE__ ) ) . 'public/partials/beautiful-taxonomy-filters-public-info-display.php';
+
+		if ( ! $echo ) {
+			return ob_get_clean();
+		}
 
 	}
 
