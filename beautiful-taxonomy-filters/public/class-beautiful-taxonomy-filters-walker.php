@@ -97,15 +97,17 @@ class Walker_Slug_Value_Category_Dropdown extends Walker_CategoryDropdown {
 		$cat_name = apply_filters( 'list_cats', $category->name, $category );
 		$output .= "\t" . '<option class="level-' . $depth . ' ' . $category->slug . '" value="' . $category->term_id . '" data-label=""';
 		$get_parameters = $_GET; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		if ( isset( $get_parameters ) ) {
+		if ( ! empty( $get_parameters ) ) {
 			foreach ( $get_parameters as $get_variable ) {
-				if ( strpos( $get_variable, ',' ) !== false ) {
-					$get_array = explode( ',', $get_variable );
-				} else {
-					$get_array[] = $get_variable;
+				// $_GET values can be arrays (e.g. ?foo[]=bar). Skip anything non-scalar so we
+				// never hand an array to strpos(), which is a fatal TypeError on PHP 8+.
+				if ( ! is_scalar( $get_variable ) ) {
+					continue;
 				}
+				// Reset per iteration so values don't leak across query parameters.
+				$get_array = ( strpos( $get_variable, ',' ) !== false ) ? explode( ',', $get_variable ) : array( $get_variable );
 				foreach ( $get_array as $get_single ) {
-					if ( $category->term_id == $args['selected'] || $get_single == $category->term_id ) {
+					if ( ( isset( $args['selected'] ) && $category->term_id == $args['selected'] ) || $get_single == $category->term_id ) {
 						$output .= ' selected="selected" ';
 					}
 				}
@@ -119,7 +121,7 @@ class Walker_Slug_Value_Category_Dropdown extends Walker_CategoryDropdown {
 		//run our custom filter
 		$output .= apply_filters( 'beautiful_filters_term_name', $cat_name, $category, $depth );
 
-		if ( $args['show_count'] ) {
+		if ( ! empty( $args['show_count'] ) ) {
 			//If they want a post count make sure to only show the count for this specific post type
 			$count = Beautiful_Taxonomy_Filters_Public::get_term_post_count_by_type( $category->slug, $category->taxonomy, $this->post_type );
 			$output .= '  (' . $count . ')';

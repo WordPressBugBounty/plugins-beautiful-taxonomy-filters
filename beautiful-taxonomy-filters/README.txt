@@ -3,8 +3,8 @@ Contributors: Jonathandejong
 Donate link: http://fancy.to/k9qxt
 Tags: Taxonomy, filter, pretty permalinks, terms, widget
 Requires at least: 4.3.0
-Tested up to: 6.9
-Stable tag: 2.4.7
+Tested up to: 7.1
+Stable tag: 2.4.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -146,6 +146,10 @@ Why thank you! We don't have proper donate link but if you want to you can send 
 
 
 == Changelog ==
+= 2.4.8 =
+* IMPROVEMENT: Tested up to WordPress 7.1.
+* BUGFIX: Fixed a PHP 8+ fatal error that could occur on archive pages when an array-style query parameter was present in the URL. Also hardened a couple of related PHP 8 notices.
+
 = 2.4.7 =
 * BUGFIX: Sorted a security issue. Please make sure you update to this version or later.
 
